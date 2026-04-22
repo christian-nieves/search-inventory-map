@@ -26,11 +26,25 @@ public class SearchInventoryMap {
     }
 
     private static void loadInventory(){
-        BufferedReader bufferedReader = new BufferedReader(new FileReader("inventory.csv"));
         String line;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("inventory.csv"));
+            while ((line = bufferedReader.readLine()) != null) {
+
+                String[] parts = line.split("\\|");
+
+                int id = Integer.parseInt(parts[0]);
+                String name = parts[1];
+                double price = Double.parseDouble(parts[2]);
+                inventory.put(id, new Product(id, name, price));
+            }
+            bufferedReader.close();
 
 
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
